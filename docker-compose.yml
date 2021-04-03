@@ -17,7 +17,7 @@ services:
       - '8080:8080'
       - '8443:8443'
     environment:
-      - PRESTASHOP_HOST=18-222-198-16
+      - PRESTASHOP_HOST=18.222.198.16
       - PRESTASHOP_DATABASE_HOST=mariadb
       - PRESTASHOP_DATABASE_PORT_NUMBER=3306
       - PRESTASHOP_DATABASE_USER=kids
@@ -61,8 +61,8 @@ services:
     volumes:
       - /home/ubuntu/kids_programming/www/:/usr/share/nginx/html:ro
     environment:
-      - VIRTUAL_HOST=18-222-198-16
-      - LETSENCRYPT_HOST=18-222-198-16
+      - VIRTUAL_HOST=18.222.198.16
+      - LETSENCRYPT_HOST=18.222.198.16
       - LETSENCRYPT_EMAIL=renzormalla@outlook.com
 volumes:
   mariadb_data:
