@@ -24,7 +24,7 @@ services:
       - ALLOW_EMPTY_PASSWORD=yes
     volumes:
       - 'prestashop_data:/bitnami/prestashop'
-      - '/home/ubuntu/www/:/var/www/'
+      - '/home/ubuntu/kids_programming/www/:/var/www/'
     depends_on:
       - mariadb
   nginx-proxy:
@@ -44,7 +44,7 @@ services:
     image: jrcs/letsencrypt-nginx-proxy-companion
     restart: always
     volumes:
-      - /home/ubuntu/certs/:etc/nginx/certs:rw
+      - /home/ubuntu/kids_programming/certs/:etc/nginx/certs:rw
       - /var/run/docker.sock:/var/run/docker.sock:ro
     volumes_form:
       - nginx-proxy:rw
@@ -54,7 +54,7 @@ services:
     expose:
       - "80"
     volumes:
-      - /home/ubuntu/www/:/usr/share/nginx/html:ro
+      - /home/ubuntu/kids_programming/www/:/usr/share/nginx/html:ro
     enviroment:
       - VIRTUAL_HOST=18-222-198-16
       - LETSENCRYPT_HOST=18-222-198-16
