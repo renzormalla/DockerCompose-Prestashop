@@ -13,11 +13,7 @@ services:
         
     kids_programming:
         image: 'docker.io/bitnami/prestashop:latest'
-        ports:
-            - "80:80"
-            - "443:443"
         environment:
-            - PRESTASHOP_HOST=18.222.198.16
             - PRESTASHOP_DATABASE_HOST=mariadb
             - PRESTASHOP_DATABASE_PORT_NUMBER=3306
             - PRESTASHOP_DATABASE_USER=kids
@@ -27,12 +23,17 @@ services:
         volumes:
             - 'prestashop_data:/bitnami/prestashop'
             - '/home/ubuntu/kids_programming/www/:/var/www/'
+        labels:
+            - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
         depends_on:
             - mariadb
 
     nginx-proxy:
         image: jwilder/nginx-proxy
         restart: always
+        ports:
+            - "80:80"
+            - "443:443"
         volumes:
             - /var/run/docker.sock:/tmp/docker.sock:ro
             - /home/ubuntu/kids_programming/certs:/etc/nginx/certs:ro
