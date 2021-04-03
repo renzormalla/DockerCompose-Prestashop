@@ -60,7 +60,7 @@ services:
       - "80"
     volumes:
       - /home/ubuntu/kids_programming/www/:/usr/share/nginx/html:ro
-    enviroment:
+    environment:
       - VIRTUAL_HOST=18-222-198-16
       - LETSENCRYPT_HOST=18-222-198-16
       - LETSENCRYPT_EMAIL=renzormalla@outlook.com
