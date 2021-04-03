@@ -53,7 +53,7 @@ services:
     volumes_from:
       - nginx-proxy:rw
 
-  kids_nginx:
+  www:
     image: nginx
     restart: always
     expose:
