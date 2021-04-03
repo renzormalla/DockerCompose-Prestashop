@@ -20,6 +20,9 @@ services:
             - PRESTASHOP_DATABASE_PASSWORD=kids123
             - PRESTASHOP_DATABASE_NAME=kids
             - ALLOW_EMPTY_PASSWORD=yes
+            - VIRTUAL_HOST=18.222.198.16
+            - LETSENCRYPT_HOST=18.222.198.16
+            - LETSENCRYPT_EMAIL=renzormalla@outlook.com
         volumes:
             - 'prestashop_data:/bitnami/prestashop'
             - '/home/ubuntu/kids_programming/www/:/var/www/'
