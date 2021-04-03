@@ -38,7 +38,7 @@ services:
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker/sock:ro
-      - /home/ubuntu/certs/:etc/nginx/certs:ro
+      - /home/ubuntu/kids_programming/certs/:etc/nginx/certs:ro
       - /etc/nginx/vhost.d
       - /usr/share/nginx/html
     labels:
