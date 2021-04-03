@@ -13,10 +13,8 @@ services:
       
   kids_programming:
     image: 'docker.io/bitnami/prestashop:latest'
-    ports:
-      - '8080:80'
     environment:
-      - PRESTASHOP_HOST=ec2-18-222-198-16.us-east-2.compute.amazonaws.com
+      - PRESTASHOP_HOST=18.222.198.16
       - PRESTASHOP_DATABASE_HOST=mariadb
       - PRESTASHOP_DATABASE_PORT_NUMBER=3306
       - PRESTASHOP_DATABASE_USER=kids
@@ -60,8 +58,8 @@ services:
     volumes:
       - /home/ubuntu/kids_programming/www/:/usr/share/nginx/html:ro
     environment:
-      - VIRTUAL_HOST=ec2-18-222-198-16.us-east-2.compute.amazonaws.com
-      - LETSENCRYPT_HOST=ec2-18-222-198-16.us-east-2.compute.amazonaws.com
+      - VIRTUAL_HOST=18.222.198.16
+      - LETSENCRYPT_HOST=18.222.198.16
       - LETSENCRYPT_EMAIL=renzormalla@outlook.com
 volumes:
   mariadb_data:
