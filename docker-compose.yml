@@ -14,7 +14,7 @@ services:
   kids_programming:
     image: 'docker.io/bitnami/prestashop:latest'
     ports:
-      - '80:80'
+      - '8080:80'
     environment:
       - PRESTASHOP_HOST=ec2-18-222-198-16.us-east-2.compute.amazonaws.com
       - PRESTASHOP_DATABASE_HOST=mariadb
@@ -33,6 +33,7 @@ services:
     image: jwilder/nginx-proxy
     restart: always
     ports:
+      - "80:80"
       - "443:443"
     volumes:
       - /var/run/docker.sock:/tmp/docker.sock:ro
