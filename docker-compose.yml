@@ -1,0 +1,66 @@
+version: '1'
+services:
+  mariadb:
+    image: 'docker.io/bitnami/mariadb:latest'
+    environment:
+      - ALLOW_EMPTY_PASSWORD=yes
+      - MARIADB_USER=kids
+      - MARIADB_DATABASE=kids
+      - MARIADB_PASSWORD=kids123
+    volumes:
+      - 'mariadb_data:/bitnami/mariadb'
+  prestashop:
+    image: 'docker.io/bitnami/prestashop:latest'
+    ports:
+      - '80:8080'
+      - '443:8443'
+    environment:
+      - PRESTASHOP_HOST=18-222-198-16
+      - PRESTASHOP_DATABASE_HOST=mariadb
+      - PRESTASHOP_DATABASE_PORT_NUMBER=3306
+      - PRESTASHOP_DATABASE_USER=kids
+      - PRESTASHOP_DATABASE_PASSWORD=kids123
+      - PRESTASHOP_DATABASE_NAME=kids
+      - ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - 'prestashop_data:/bitnami/prestashop'
+      - '/home/ubuntu/www/:/var/www/'
+    depends_on:
+      - mariadb
+  nginx-proxy:
+    image: jwilder/nginx-proxy
+    restart: always
+    ports:
+      - "80:80"
+      - "443:443"
+    volumes:
+      - /var/run/docker.sock:/tmp/docker/sock:ro
+      - /home/ubuntu/certs/:etc/nginx/certs:ro
+      - /etc/nginx/vhost.d
+      - /usr/share/nginx/html
+    labels:
+      - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
+  letsencrypt:
+    image: jrcs/letsencrypt-nginx-proxy-companion
+    restart: always
+    volumes:
+      - /home/ubuntu/certs/:etc/nginx/certs:rw
+      - /var/run/docker.sock:/var/run/docker.sock:ro
+    volumes_form:
+      - nginx-proxy:rw
+  www:
+    image: nginx
+    restart: always
+    expose:
+      - "80"
+    volumes:
+      - /home/ubuntu/www/:/usr/share/nginx/html:ro
+    enviroment:
+      - VIRTUAL_HOST=18-222-198-16
+      - LETSENCRYPT_HOST=18-222-198-16
+      - LETSENCRYPT_EMAIL=renzormalla@outlook.com
+volumes:
+  mariadb_data:
+    driver: local
+  prestashop_data:
+    driver: local
