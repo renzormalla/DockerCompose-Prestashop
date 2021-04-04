@@ -1,36 +1,6 @@
 version: '2.2'
 
 services:
-    mariadb:
-        image: 'docker.io/bitnami/mariadb:latest'
-        environment:
-            - ALLOW_EMPTY_PASSWORD=yes
-            - MARIADB_USER=kids
-            - MARIADB_DATABASE=kids
-            - MARIADB_PASSWORD=kids123
-        volumes:
-            - 'mariadb_data:/bitnami/mariadb'
-        
-    kids_programming:
-        image: 'docker.io/bitnami/prestashop:latest'
-        environment:
-            - PRESTASHOP_DATABASE_HOST=mariadb
-            - PRESTASHOP_DATABASE_PORT_NUMBER=3306
-            - PRESTASHOP_DATABASE_USER=kids
-            - PRESTASHOP_DATABASE_PASSWORD=kids123
-            - PRESTASHOP_DATABASE_NAME=kids
-            - ALLOW_EMPTY_PASSWORD=yes
-            - VIRTUAL_HOST=18.222.198.16
-            - LETSENCRYPT_HOST=18.222.198.16
-            - LETSENCRYPT_EMAIL=renzormalla@outlook.com
-        volumes:
-            - 'prestashop_data:/bitnami/prestashop'
-            - '/home/ubuntu/kids_programming/www/:/var/www/'
-        labels:
-            - com.github.jrcs.letsencrypt_nginx_proxy_companion.nginx_proxy
-        depends_on:
-            - mariadb
-
     nginx-proxy:
         image: jwilder/nginx-proxy
         restart: always
@@ -60,13 +30,8 @@ services:
         expose:
             - "80"
         volumes:
-            - /home/ubuntu/kids_programming/www/:/usr/share/nginx/html:ro
+            - /home/ubuntu/kids_programming/prestashop/:/usr/share/nginx/html:ro
         environment:
-            - VIRTUAL_HOST=18.222.198.16
-            - LETSENCRYPT_HOST=18.222.198.16
+            - VIRTUAL_HOST=18.222.227.36
+            - LETSENCRYPT_HOST=18.222.227.36
             - LETSENCRYPT_EMAIL=renzormalla@outlook.com
-volumes:
-    mariadb_data:
-        driver: local
-    prestashop_data:
-        driver: local
